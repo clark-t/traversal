@@ -48,7 +48,7 @@
                     }]
                 }]
             }]
-        }], 'children', function (obj) {
+        }], function (obj) {
             console.log(obj.id);
         });
 
@@ -86,7 +86,7 @@
                     }]
                 }]
             }]
-        }], 'children', function (obj) {
+        }], function (obj) {
             console.log(obj.id);
         });
 

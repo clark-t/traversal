@@ -9,10 +9,10 @@
      * 非递归广度遍历
      *
      * @param {*} arr 数据源
-     * @param {string=} key 子节点key
      * @param {Function} step 遍历到每个节点时触发的回调，返回false时结束遍历
+     * @param {string=} key 子节点key
      */
-    traversal.breadth = function (arr, key, step) {
+    traversal.breadth = function (arr, step, key) {
         if (arr == null || !step || !(step instanceof Function)) {
             return;
         }
@@ -55,10 +55,10 @@
      * 非递归深度遍历
      *
      * @param {*} arr 数据源
-     * @param {string=} key 子节点key
      * @param {Function} step 遍历到每个节点时触发的回调，返回false时结束遍历
+     * @param {string=} key 子节点key
      */
-    traversal.depth = function (arr, key, step) {
+    traversal.depth = function (arr, step, key) {
         if (arr == null || !step || !(step instanceof Function)) {
             return;
         }
