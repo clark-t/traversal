@@ -12,7 +12,6 @@
         var traversal = require('path/to/traversal');
 
 ### 普通加载
----
         var traversal = window.traversal;
 
 ### 例子
