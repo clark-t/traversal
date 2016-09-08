@@ -3,97 +3,70 @@
  * @author clarkt(clarktanglei@163.com)
  */
 (function () {
-    var traversal = {};
+    var traversal = {
+        /**
+         * 非递归广度遍历
+         *
+         * @param {Array} arr 数据源
+         * @param {Function} step 遍历到每个节点时触发的回调，返回false时结束遍历
+         * @param {string=} key 子节点key
+         */
+        breadth: function (arr, step, key) {
+            key = key || 'children';
+            // 浅拷贝数据源
+            var queue = arr.slice(0);
+            var result;
 
-    /**
-     * 非递归广度遍历
-     *
-     * @param {*} arr 数据源
-     * @param {Function} step 遍历到每个节点时触发的回调，返回false时结束遍历
-     * @param {string=} key 子节点key
-     */
-    traversal.breadth = function (arr, step, key) {
-        if (arr == null || !step || !(step instanceof Function)) {
-            return;
-        }
+            while (queue.length) {
+                var obj = queue.shift();
 
-        key = key || 'children';
-        var queue = [];
-        var i;
-        var max;
-
-        if (arr instanceof Array) {
-            for (i = 0, max = arr.length; i < max; i++) {
-                queue.push(arr[i]);
-            }
-        }
-        else {
-            queue.push(arr);
-        }
-
-        while (queue.length) {
-            var obj = queue.shift();
-
-            if (obj && obj[key]) {
-                if (obj[key] instanceof Array) {
-                    for (i = 0, max = obj[key].length; i < max; i++) {
-                        queue.push(obj[key][i]);
-                    }
+                if (obj && obj[key] && obj[key].length) {
+                    queue = queue.concat(obj[key]);
                 }
-                else {
-                    queue.push(obj[key]);
+
+                var opts = step(obj, result);
+                // 当用户手动break 以及 队列为空时，终止遍历
+                if (opts && opts.break || !queue.length) {
+                    return opts && opts.result;
+                }
+
+                if (opts && opts.result) {
+                    result = opts.result;
                 }
             }
 
-            if (step(obj) === false) {
-                break;
-            }
-        }
-    };
+            return null;
+        },
 
-    /**
-     * 非递归深度遍历
-     *
-     * @param {*} arr 数据源
-     * @param {Function} step 遍历到每个节点时触发的回调，返回false时结束遍历
-     * @param {string=} key 子节点key
-     */
-    traversal.depth = function (arr, step, key) {
-        if (arr == null || !step || !(step instanceof Function)) {
-            return;
-        }
+        /**
+         * 非递归深度遍历
+         *
+         * @param {Array} arr 数据源
+         * @param {Function} step 遍历到每个节点时触发的回调，返回false时结束遍历
+         * @param {string=} key 子节点key
+         */
+        depth: function (arr, step, key) {
+            key = key || 'children';
+            // 入栈
+            var stack = arr.reverse();
+            var result;
 
-        key = key || 'children';
-        var stack = [];
-        var i;
-        var max;
+            while (stack.length) {
+                var obj = stack.pop();
 
-        if (arr instanceof Array && arr.length) {
-            max = arr.length;
-
-            for (i = max - 1; i > -1; i--) {
-                stack.push(arr[i]);
-            }
-        }
-
-        while (stack.length) {
-            var obj = stack.pop();
-
-            if (obj && obj[key]) {
-                if (obj[key] instanceof Array && obj[key].length) {
-                    max = obj[key].length;
-
-                    for (i = max - 1; i > -1; i--) {
-                        stack.push(obj[key][i]);
-                    }
+                if (obj && obj[key] && obj[key].length) {
+                    stack = stack.concat(obj[key].reverse());
                 }
-                else {
-                    stack.push(obj[key]);
-                }
-            }
 
-            if (step(obj) === false) {
-                break;
+                var opts = step(obj, result);
+                // 当用户手动break 以及 队列为空时，终止遍历
+                if (opts && opts.break || !stack.length) {
+                    return opts && opts.result;
+                }
+
+                if (opts && opts.result) {
+                    result = opts.result;
+                }
             }
         }
     };

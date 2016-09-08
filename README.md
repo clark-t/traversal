@@ -9,85 +9,124 @@
 目前兼容commonjs AMD 以及普通的加载方式
 
 ### commonjs/AMD
-        var traversal = require('path/to/traversal');
+```javascript
+var traversal = require('path/to/traversal');
+```
 
 ### 普通加载
-        var traversal = window.traversal;
+```javascript
+var traversal = window.traversal;
+```
 
 ### 例子
-        var traversal = require('path/to/traversal');
-        traversal.breadth([{
+
+普通使用方法如下：
+
+```javascript
+var traversal = require('path/to/traversal');
+traversal.breadth(
+    [
+        {
             id: '1',
-            children: [{
-                id: '2',
-                children: [{
-                    id: '4'
-                },
+            children: [
                 {
-                    id: '5',
-                    children: [{
-                        id: '8'
-                    }]
-                }]
-            },
-            {
-                id: '3',
-                children: [{
-                    id: '6'
-                },
-                {
-                    id: '7',
-                    children: [{
-                        id: '9',
-                        children: [{
-                            id: '10'
+                    id: '2',
+                    children: [
+                        {
+                            id: '4'
                         },
                         {
-                            id: '11'
-                        }]
+                            id: '5',
+                            children: [{
+                                id: '8'
+                            }]
+                        }
+                    ]
+                },
+                {
+                    id: '3',
+                    children: [{
+                        id: '6'
+                    },
+                    {
+                        id: '7',
+                        children: [
+                            {
+                                id: '9',
+                                children: [
+                                    {
+                                        id: '10'
+                                    },
+                                    {
+                                        id: '11'
+                                    }
+                                ]
+                            }
+                        ]
                     }]
-                }]
-            }]
-        }], function (obj) {
-            console.log(obj.id);
-        });
+                }
+            ]
+        }
+    ],
+    function (obj) {
+        console.log(obj.id);
+    }
+);
+```
 
-    输出结果为：1 2 3 4 5 6 7 8 9 10 11
+输出结果为：1 2 3 4 5 6 7 8 9 10 11
 
-        traversal.depth([{
+```javascript
+traversal.depth(
+    [
+        {
             id: '1',
-            children: [{
-                id: '2',
-                children: [{
-                    id: '4'
-                },
+            children: [
                 {
-                    id: '5',
-                    children: [{
-                        id: '8'
-                    }]
-                }]
-            },
-            {
-                id: '3',
-                children: [{
-                    id: '6'
-                },
-                {
-                    id: '7',
-                    children: [{
-                        id: '9',
-                        children: [{
-                            id: '10'
+                    id: '2',
+                    children: [
+                        {
+                            id: '4'
                         },
                         {
-                            id: '11'
-                        }]
-                    }]
-                }]
-            }]
-        }], function (obj) {
-            console.log(obj.id);
-        });
+                            id: '5',
+                            children: [{
+                                id: '8'
+                            }]
+                        }
+                    ]
+                },
+                {
+                    id: '3',
+                    children: [
+                        {
+                            id: '6'
+                        },
+                        {
+                            id: '7',
+                            children: [
+                                {
+                                    id: '9',
+                                    children: [
+                                        {
+                                            id: '10'
+                                        },
+                                        {
+                                            id: '11'
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    function (obj) {
+        console.log(obj.id);
+    }
+);
+```
 
-    输出结果为：1 2 4 5 8 3 6 7 9 10 11
+输出结果为：1 2 4 5 8 3 6 7 9 10 11
