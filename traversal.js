@@ -15,7 +15,7 @@
             key = key || 'children';
             // 浅拷贝数据源
             var queue = arr.slice(0);
-            var result;
+            var opts;
 
             while (queue.length) {
                 var obj = queue.shift();
@@ -24,18 +24,14 @@
                     queue = queue.concat(obj[key]);
                 }
 
-                var opts = step(obj, result);
-                // 当用户手动break 以及 队列为空时，终止遍历
-                if (opts && opts.break || !queue.length) {
+                opts = step(obj, opts);
+                // 当用户手动break 时，终止遍历
+                if (opts && opts.break) {
                     return opts && opts.result;
-                }
-
-                if (opts && opts.result) {
-                    result = opts.result;
                 }
             }
 
-            return null;
+            return opts ? opts.result : null;
         },
 
         /**
@@ -49,7 +45,7 @@
             key = key || 'children';
             // 入栈
             var stack = arr.reverse();
-            var result;
+            var opts;
 
             while (stack.length) {
                 var obj = stack.pop();
@@ -58,16 +54,14 @@
                     stack = stack.concat(obj[key].reverse());
                 }
 
-                var opts = step(obj, result);
-                // 当用户手动break 以及 队列为空时，终止遍历
-                if (opts && opts.break || !stack.length) {
+                opts = step(obj, opts);
+                // 当用户手动break时，终止遍历
+                if (opts && opts.break) {
                     return opts && opts.result;
                 }
-
-                if (opts && opts.result) {
-                    result = opts.result;
-                }
             }
+
+            return opts ? opts.result : null;
         }
     };
 
