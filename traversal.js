@@ -8,8 +8,10 @@
          * 非递归广度遍历
          *
          * @param {Array} arr 数据源
-         * @param {Function} step 遍历到每个节点时触发的回调，返回false时结束遍历
+         * @param {Function} step 遍历到每个节点时触发的回调，可返回Object {break: boolean, result: *}
+         *                        当break为true时 结束遍历 并将result返回
          * @param {string=} key 子节点key
+         * @return {*} 遍历结果
          */
         breadth: function (arr, step, key) {
             key = key || 'children';
@@ -38,8 +40,10 @@
          * 非递归深度遍历
          *
          * @param {Array} arr 数据源
-         * @param {Function} step 遍历到每个节点时触发的回调，返回false时结束遍历
+         * @param {Function} step 遍历到每个节点时触发的回调，可返回Object {break: boolean, result: *}
+         *                        当break为true时 结束遍历 并将result返回
          * @param {string=} key 子节点key
+         * @return {*} 遍历结果
          */
         depth: function (arr, step, key) {
             key = key || 'children';
