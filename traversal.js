@@ -2,8 +2,10 @@
  * @file traversal.js 遍历方法
  * @author clarkt(clarktanglei@163.com)
  */
+
 (function () {
     var traversal = {
+
         /**
          * 非递归广度遍历
          *
