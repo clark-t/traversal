@@ -65,21 +65,67 @@ describe('test breadth traversal', function () {
             result += obj.id + ' ';
 
             if (obj.id === '8') {
-                return {break: true};
+                this.break = true;
             }
         });
         expect(result).to.be.equal('1 2 3 4 5 6 7 8 ');
     });
 
     it('test traversal with result', function () {
+        var result = traversal.breadth(
+            data,
+            function (obj, res) {
+                if (obj.id === '8') {
+                    this.break = true;
+                }
+                else {
+                    res += obj.id + ' ';
+                }
+
+                return res;
+            },
+            ''
+        );
+        expect(result).to.be.equal('1 2 3 4 5 6 7 ');
+    });
+});
+
+describe('test depth traversal', function () {
+    it('test normal traversal', function () {
         var result = '';
-        traversal.breadth(data, function (obj) {
+        traversal.depth(data, function (obj) {
+            result += obj.id + ' ';
+        });
+        expect(result).to.be.equal('1 2 4 5 8 3 6 7 9 10 11 ');
+    });
+
+    it('test traversal with break', function () {
+        var result = '';
+        traversal.depth(data, function (obj) {
             result += obj.id + ' ';
 
             if (obj.id === '8') {
-                return {break: true};
+                this.break = true;
             }
         });
-        expect(result).to.be.equal('1 2 3 4 5 6 7 8 ');
+        expect(result).to.be.equal('1 2 4 5 8 ');
+    });
+
+    it('test traversal with result', function () {
+        var result = traversal.depth(
+            data,
+            function (obj, res) {
+                if (obj.id === '8') {
+                    this.break = true;
+                }
+                else {
+                    res += obj.id + ' ';
+                }
+
+                return res;
+            },
+            ''
+        );
+        expect(result).to.be.equal('1 2 4 5 ');
     });
 });
