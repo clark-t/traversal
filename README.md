@@ -27,6 +27,7 @@ var traversal = window.traversal;
 
 3. key {string=} 指定数据源的子节点字段名，当该参数为空时，数据源的子节点字段名默认为chilren。
 
+
 ## 例子
 
 ### 普通使用方法
