@@ -263,7 +263,7 @@ traversal.depth(
 
 ### 返回值用法
 
-返回遍历到id === 8 之前的节点id相加的结果
+返回遍历到id === '8' 之前的节点id相加的结果
 
 ```javascript
 var traversal = require('path/to/traversal');
