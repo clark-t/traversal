@@ -1,7 +1,7 @@
 {
   "name": "traversal",
   "version": "1.0.0",
-  "description": "filter base class",
+  "description": "a tool for data traversing",
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha test/*.spec.js"
   },
@@ -17,7 +17,9 @@
     "mocha": "^2.5.3"
   },
   "keywords": [
-    "filter"
+    "traversal",
+    "breadth",
+    "depth"
   ],
   "main": "traversal.js",
   "directories": {

@@ -22,60 +22,67 @@ var traversal = window.traversal;
 广度遍历和深度遍历方法均可传入3个参数：
 
 1. arr {Array.<Object>} 数据源 要求类型为数组，数组得每一项为Object，代表树的一个节点。该节点的子节点数据的字段名默认为children，可通过函数的第三个参数进行指定。
-2. step {Function(data:Object, result:Object):Object | null} 遍历每个节点时的回调函数，该函数有两个参数，data和result，其中data为当前遍历节点的Object对象，result为上一步遍历返回的结果对象。该回调函数可设置返回值，要求该返回值类型必须为Object，如果需要中断遍历，则返回的结果对象result带有字段break，且result.break === true即可实现遍历中断。遍历中断或者是遍历结束时，会最后一次遍历的回调函数所返回的result.result作为遍历执行结果进行返回。
-3. key {string=} 指定数据源的子节点字段名，当该参数为空时，数据源的子节点字段名默认为chilren。
+2. step {Function(data:Object, result:Object):Object | null} 遍历每个节点时的回调函数，该函数有两个参数，data和result，其中data为当前遍历节点的Object对象，result为上一步遍历返回的结果对象。该回调函数可设置返回值，返回值将作为下一步遍历时回调的第二个参数传入，以及作为遍历结束时的结果返回。与Array.reduce类似。
+3. res {*=} 遍历返回结果的初始值，可不传。
+4. key {string=} 指定数据源的子节点字段名，当该参数为空时，数据源的子节点字段名默认为chilren。
 
 
 ## 例子
 
+### 数据源
+
+```javascript
+var data = [
+    {
+        id: '1',
+        children: [
+            {
+                id: '2',
+                children: [
+                    {
+                        id: '4'
+                    },
+                    {
+                        id: '5',
+                        children: [{
+                            id: '8'
+                        }]
+                    }
+                ]
+            },
+            {
+                id: '3',
+                children: [{
+                    id: '6'
+                },
+                {
+                    id: '7',
+                    children: [
+                        {
+                            id: '9',
+                            children: [
+                                {
+                                    id: '10'
+                                },
+                                {
+                                    id: '11'
+                                }
+                            ]
+                        }
+                    ]
+                }]
+            }
+        ]
+    }
+];
+
+```
+
 ### 普通使用方法
 
 ```javascript
-var traversal = require('path/to/traversal');
 traversal.breadth(
-    [
-        {
-            id: '1',
-            children: [
-                {
-                    id: '2',
-                    children: [
-                        {
-                            id: '4'
-                        },
-                        {
-                            id: '5',
-                            children: [{
-                                id: '8'
-                            }]
-                        }
-                    ]
-                },
-                {
-                    id: '3',
-                    children: [{
-                        id: '6'
-                    },
-                    {
-                        id: '7',
-                        children: [
-                            {
-                                id: '9',
-                                children: [
-                                    {
-                                        id: '10'
-                                    },
-                                    {
-                                        id: '11'
-                                    }
-                                ]
-                            }
-                        ]
-                    }]
-                }
-            ]
-        }
-    ],
+    data,
     function (obj) {
         console.log(obj.id);
     }
@@ -86,51 +93,7 @@ traversal.breadth(
 
 ```javascript
 traversal.depth(
-    [
-        {
-            id: '1',
-            children: [
-                {
-                    id: '2',
-                    children: [
-                        {
-                            id: '4'
-                        },
-                        {
-                            id: '5',
-                            children: [{
-                                id: '8'
-                            }]
-                        }
-                    ]
-                },
-                {
-                    id: '3',
-                    children: [
-                        {
-                            id: '6'
-                        },
-                        {
-                            id: '7',
-                            children: [
-                                {
-                                    id: '9',
-                                    children: [
-                                        {
-                                            id: '10'
-                                        },
-                                        {
-                                            id: '11'
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    ],
+    data,
     function (obj) {
         console.log(obj.id);
     }
@@ -144,56 +107,13 @@ traversal.depth(
 当id === '8'时，终止遍历
 
 ```javascript
-var traversal = require('path/to/traversal');
 traversal.breadth(
-    [
-        {
-            id: '1',
-            children: [
-                {
-                    id: '2',
-                    children: [
-                        {
-                            id: '4'
-                        },
-                        {
-                            id: '5',
-                            children: [{
-                                id: '8'
-                            }]
-                        }
-                    ]
-                },
-                {
-                    id: '3',
-                    children: [{
-                        id: '6'
-                    },
-                    {
-                        id: '7',
-                        children: [
-                            {
-                                id: '9',
-                                children: [
-                                    {
-                                        id: '10'
-                                    },
-                                    {
-                                        id: '11'
-                                    }
-                                ]
-                            }
-                        ]
-                    }]
-                }
-            ]
-        }
-    ],
+    data,
     function (obj) {
         console.log(obj.id);
 
         if (obj.id === '8') {
-            return {break: true};
+            this.break = true;
         }
     }
 );
@@ -203,56 +123,12 @@ traversal.breadth(
 
 ```javascript
 traversal.depth(
-    [
-        {
-            id: '1',
-            children: [
-                {
-                    id: '2',
-                    children: [
-                        {
-                            id: '4'
-                        },
-                        {
-                            id: '5',
-                            children: [{
-                                id: '8'
-                            }]
-                        }
-                    ]
-                },
-                {
-                    id: '3',
-                    children: [
-                        {
-                            id: '6'
-                        },
-                        {
-                            id: '7',
-                            children: [
-                                {
-                                    id: '9',
-                                    children: [
-                                        {
-                                            id: '10'
-                                        },
-                                        {
-                                            id: '11'
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    ],
+    data,
     function (obj) {
         console.log(obj.id);
 
         if (obj.id === '8') {
-            return {break: true};
+            this.break = true;
         }
     }
 );
@@ -265,124 +141,43 @@ traversal.depth(
 返回遍历到id === '8' 之前的节点id相加的结果
 
 ```javascript
-var traversal = require('path/to/traversal');
 var result = traversal.breadth(
-    [
-        {
-            id: '1',
-            children: [
-                {
-                    id: '2',
-                    children: [
-                        {
-                            id: '4'
-                        },
-                        {
-                            id: '5',
-                            children: [{
-                                id: '8'
-                            }]
-                        }
-                    ]
-                },
-                {
-                    id: '3',
-                    children: [{
-                        id: '6'
-                    },
-                    {
-                        id: '7',
-                        children: [
-                            {
-                                id: '9',
-                                children: [
-                                    {
-                                        id: '10'
-                                    },
-                                    {
-                                        id: '11'
-                                    }
-                                ]
-                            }
-                        ]
-                    }]
-                }
-            ]
-        }
-    ],
+    data,
     function (obj, res) {
-        if (obj.id === 8) {
-            return {break: true, res: res};
+        if (obj.id === '8') {
+            this.break = true;
+        }
+        else {
+            res += obj.id;
         }
 
-        res += obj.id;
-        return {res: res};
-    }
+        return res;
+    },
+    ''
 );
 
 console.log(result);
 ```
 
-输出结果为：'12345678'
+输出结果为：'1234567'
 
 ```javascript
 var result = traversal.depth(
-    [
-        {
-            id: '1',
-            children: [
-                {
-                    id: '2',
-                    children: [
-                        {
-                            id: '4'
-                        },
-                        {
-                            id: '5',
-                            children: [{
-                                id: '8'
-                            }]
-                        }
-                    ]
-                },
-                {
-                    id: '3',
-                    children: [
-                        {
-                            id: '6'
-                        },
-                        {
-                            id: '7',
-                            children: [
-                                {
-                                    id: '9',
-                                    children: [
-                                        {
-                                            id: '10'
-                                        },
-                                        {
-                                            id: '11'
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+    data,
+    function (obj, res) {
+        if (obj.id === '8') {
+            this.break = true;
         }
-    ],
-    function (obj) {
-        if (obj.id === 8) {
-            return {break: true, res: res};
+        else {
+            res += obj.id;
         }
 
-        res += obj.id;
-        return {res: res};
-    }
+        return res;
+    },
+    ''
 );
 
 console.log(result);
 ```
 
-输出结果为：'12458'
+输出结果为：'1245'
