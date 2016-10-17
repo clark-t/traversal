@@ -20,8 +20,11 @@ var traversal = window.traversal;
 
 ## 函数参数及返回说明
 广度遍历和深度遍历方法均可传入3个参数：
-1. arr {Array.<Object>} 数据源 要求类型为数组，数组得每一项为Object，代表树的一个节点。该节点的子节点数据的字段名默认为children，可通过函数的第三个参数进行指定
+
+1. arr {Array.<Object>} 数据源 要求类型为数组，数组得每一项为Object，代表树的一个节点。该节点的子节点数据的字段名默认为children，可通过函数的第三个参数进行指定。
+
 2. step {Function(data:Object, result:Object):Object | null} 遍历每个节点时的回调函数，该函数有两个参数，data和result，其中data为当前遍历节点的Object对象，result为上一步遍历返回的结果对象。该回调函数可设置返回值，要求该返回值类型必须为Object，如果需要中断遍历，则返回的结果对象result带有字段break，且result.break === true即可实现遍历中断。遍历中断或者是遍历结束时，会最后一次遍历的回调函数所返回的result.result作为遍历执行结果进行返回。
+
 3. key {string=} 指定数据源的子节点字段名，当该参数为空时，数据源的子节点字段名默认为chilren。
 
 ## 例子
