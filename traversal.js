@@ -19,7 +19,7 @@
             key = key || 'children';
             // 浅拷贝数据源
             var queue = arr.slice(0);
-            var res = null;
+            var res = {break: false, result: null};
 
             while (queue.length) {
                 var obj = queue.shift();
@@ -83,4 +83,4 @@
         this.traversal = traversal;
     }
 })
-.call(this || typeof window !== 'undefined' ? window : global);
+.call(this);

@@ -1,0 +1,26 @@
+{
+  "name": "traversal",
+  "version": "1.0.0",
+  "description": "filter base class",
+  "scripts": {
+    "test": "node ./node_modules/mocha/bin/mocha test/*.spec.js"
+  },
+  "dependencies": {},
+  "author": "clarkt (clarktanglei@163.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clark-t/traversal.git"
+  },
+  "license": "BSD",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3"
+  },
+  "keywords": [
+    "filter"
+  ],
+  "main": "traversal.js",
+  "directories": {
+    "test": "tests"
+  }
+}
