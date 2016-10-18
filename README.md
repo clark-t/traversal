@@ -21,10 +21,10 @@ var traversal = window.traversal;
 ## 函数参数及返回说明
 广度遍历和深度遍历方法均可传入3个参数：
 
-1. arr {Array.<Object>} 数据源 要求类型为数组，数组得每一项为Object，代表树的一个节点。该节点的子节点数据的字段名默认为children，可通过函数的第三个参数进行指定。
-2. step {Function(data:Object, result:Object, event:Object):Object | null} 遍历每个节点时的回调函数，该函数有三个参数，data、result和event，其中data为当前遍历节点的Object对象，result为上一步遍历返回的结果对象，event为事件对象，当设置event.break = true时，将终止遍历。该回调函数可设置返回值，返回值将作为下一步遍历时回调的第二个参数传入，以及作为遍历结束时的结果返回。
-3. res {*=} 遍历返回结果的初始值，可不传。
-4. key {string=} 指定数据源的子节点字段名，当该参数为空时，数据源的子节点字段名默认为chilren。
+* arr {Array.<Object>} 数据源 要求类型为数组，数组得每一项为Object，代表树的一个节点。该节点的子节点数据的字段名默认为children，可通过函数的第三个参数进行指定。
+* step {Function(data:Object, result:Object, event:Object):Object | null} 遍历每个节点时的回调函数，该函数有三个参数，data、result和event，其中data为当前遍历节点的Object对象，result为上一步遍历返回的结果对象，event为事件对象，当设置event.break = true时，将终止遍历。该回调函数可设置返回值，返回值将作为下一步遍历时回调的第二个参数传入，以及作为遍历结束时的结果返回。
+* res {*=} 遍历返回结果的初始值，可不传。
+* key {string=} 指定数据源的子节点字段名，当该参数为空时，数据源的子节点字段名默认为chilren。
 
 遍历结束后的返回结果为最后一次遍历回调返回的结果。
 
