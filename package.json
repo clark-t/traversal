@@ -1,7 +1,7 @@
 {
-  "name": "traversal",
+  "name": "data-traversal",
   "version": "1.0.0",
-  "description": "a tool for data traversing",
+  "description": "a tool for tree data traversing",
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha test/*.spec.js"
   },
