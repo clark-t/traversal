@@ -61,11 +61,11 @@ describe('test breadth traversal', function () {
 
     it('test traversal with break', function () {
         var result = '';
-        traversal.breadth(data, function (obj) {
+        traversal.breadth(data, function (obj, res, e) {
             result += obj.id + ' ';
 
             if (obj.id === '8') {
-                this.break = true;
+                e.break = true;
             }
         });
         expect(result).to.be.equal('1 2 3 4 5 6 7 8 ');
@@ -74,9 +74,9 @@ describe('test breadth traversal', function () {
     it('test traversal with result', function () {
         var result = traversal.breadth(
             data,
-            function (obj, res) {
+            function (obj, res, e) {
                 if (obj.id === '8') {
-                    this.break = true;
+                    e.break = true;
                 }
                 else {
                     res += obj.id + ' ';
@@ -101,11 +101,11 @@ describe('test depth traversal', function () {
 
     it('test traversal with break', function () {
         var result = '';
-        traversal.depth(data, function (obj) {
+        traversal.depth(data, function (obj, res, e) {
             result += obj.id + ' ';
 
             if (obj.id === '8') {
-                this.break = true;
+                e.break = true;
             }
         });
         expect(result).to.be.equal('1 2 4 5 8 ');
@@ -114,9 +114,9 @@ describe('test depth traversal', function () {
     it('test traversal with result', function () {
         var result = traversal.depth(
             data,
-            function (obj, res) {
+            function (obj, res, e) {
                 if (obj.id === '8') {
-                    this.break = true;
+                    e.break = true;
                 }
                 else {
                     res += obj.id + ' ';

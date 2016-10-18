@@ -21,8 +21,7 @@
             key = key || 'children';
             // 浅拷贝数据源
             var queue = arr.slice();
-            var me = {};
-            step = step.bind(me);
+            var event = {};
 
             while (queue.length) {
                 var obj = queue.shift();
@@ -31,9 +30,9 @@
                     queue = queue.concat(obj[key]);
                 }
 
-                res = step(obj, res);
+                res = step(obj, res, event);
                 // 当用户手动break 时，终止遍历
-                if (me.break) {
+                if (event.break) {
                     return res;
                 }
             }
@@ -56,8 +55,7 @@
             key = key || 'children';
             // 入栈
             var stack = arr.slice().reverse();
-            var me = {};
-            step = step.bind(me);
+            var event = {};
 
             while (stack.length) {
                 var obj = stack.pop();
@@ -66,10 +64,10 @@
                     stack = stack.concat(obj[key].slice().reverse());
                 }
 
-                res = step(obj, res);
+                res = step(obj, res, event);
 
                 // 当用户手动break时，终止遍历
-                if (me.break) {
+                if (event.break) {
                     return res;
                 }
             }

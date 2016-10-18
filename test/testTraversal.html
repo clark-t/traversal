@@ -80,11 +80,11 @@
         console.log('break');
 
         var result = '';
-        traversal.breadth(data, function (obj) {
+        traversal.breadth(data, function (obj, res, e) {
             result += obj.id + ' ';
 
             if (obj.id === '8') {
-                this.break = true;
+                e.break = true;
             }
         });
         console.log(result);
@@ -93,9 +93,9 @@
     (function () {
         console.log('break');
 
-        var result = traversal.breadth(data, function (obj, res) {
+        var result = traversal.breadth(data, function (obj, res, e) {
             if (obj.id === '8') {
-                this.break = true;
+                e.break = true;
             }
             else {
                 res += obj.id + ' ';
@@ -122,11 +122,11 @@
     (function () {
         console.log('break');
         var result = '';
-        traversal.depth(data, function (obj) {
+        traversal.depth(data, function (obj, res, e) {
             result += obj.id + ' ';
 
             if (obj.id === '8') {
-                this.break = true;
+                e.break = true;
             }
         });
         console.log(result);
@@ -135,9 +135,9 @@
     (function () {
         console.log('break');
 
-        var result = traversal.depth(data, function (obj, res) {
+        var result = traversal.depth(data, function (obj, res, e) {
             if (obj.id === '8') {
-                this.break = true;
+                e.break = true;
             }
             else {
                 res += obj.id + ' ';
