@@ -9,11 +9,22 @@
 目前兼容commonjs AMD 以及普通的加载方式
 
 ### commonjs/AMD
+使用npm进行安装
+```bash
+npm install data-traversal
+```
+
 ```javascript
-var traversal = require('path/to/traversal');
+var traversal = require('path/to/data-traversal');
 ```
 
 ### 普通加载
+使用script标签引入
+
+```HTML
+<script src="path/to/data-traversal/traversal.js"></script>
+````
+
 ```javascript
 var traversal = window.traversal;
 ```
