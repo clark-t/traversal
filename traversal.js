@@ -10,9 +10,9 @@
          * 非递归广度遍历
          *
          * @param {Array} arr 数据源
-         * @param {Function} step 遍历到每个节点时触发的回调，可返回任意值，
-         *                        作为遍历到下一个节点时回调的第二个参数，或者是遍历结束时的返回，
-         *                        如果在执行过程中想中断遍历，可令this.break = true;
+         * @param {Function(obj, res, event)} step 遍历到每个节点时触发的回调，可返回任意值，
+         *                        作为遍历到下一个节点时回调的第二个参数res，或者是遍历结束时的返回，
+         *                        如果在执行过程中想中断遍历，可设置event.break = true;
          * @param {*=} res 遍历结果初始值
          * @param {string=} key 子节点key
          * @return {*} 遍历结果
@@ -44,9 +44,9 @@
          * 非递归深度遍历
          *
          * @param {Array} arr 数据源
-         * @param {Function} step 遍历到每个节点时触发的回调，可返回任意值，
-         *                        作为遍历到下一个节点时回调的第二个参数，或者是遍历结束时的返回，
-         *                        如果在执行过程中想中断遍历，可令this.break = true;
+         * @param {Function(obj, res, event)} step 遍历到每个节点时触发的回调，可返回任意值，
+         *                        作为遍历到下一个节点时回调的第二个参数res，或者是遍历结束时的返回，
+         *                        如果在执行过程中想中断遍历，可设置event.break = true;
          * @param {*=} res 遍历结果初始值
          * @param {string=} key 子节点key
          * @return {*} 遍历结果
